@@ -34,7 +34,7 @@ export default function Home() {
                         <li className="itens">
                             <img src={fplanta} alt="Colar de Perolas"/>
                             <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
+                            <p>(Senecio Rowleyanus)</p>re
                             <p className="valor">R$:10,00</p>
                             <p className="estoque">37 unid.</p>
                         </li>
