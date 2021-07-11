@@ -1,13 +1,24 @@
-import React from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { TiShoppingCart } from 'react-icons/ti'
+
+import api from '../../services/api'
 
 import './styles.css';
 import fplanta from '../../assets/planta.jpg'
 
 export default function Home() {
+    const [produtos, setProdutos] = useState([]);
+
+    useEffect(() => {
+        api.get('produtos').then( response => {
+            setProdutos( response.data);
+        }) 
+    },[]);
+
+
     return(
         <div className="home">
-            <header>
+            <header> 
                 <div className="logo">
                 <h1>Mudinhas e afins.</h1>
                 <p>Horto Online</p>
@@ -24,62 +35,15 @@ export default function Home() {
                 </div>
                 <div className="grid">
                     <ul>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>re
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
-                        <li className="itens">
-                            <img src={fplanta} alt="Colar de Perolas"/>
-                            <strong>Colar de Pérolas</strong>
-                            <p>(Senecio Rowleyanus)</p>
-                            <p className="valor">R$:10,00</p>
-                            <p className="estoque">37 unid.</p>
-                        </li>
+                        {produtos.map(produto => (
+                            <li key={produto.id}className="itens">
+                            <img src={fplanta} alt={produto.nome_popular}/>
+                            <strong>{produto.nome_popular}</strong>
+                            <p>{produto.nome_cientifico}</p>
+                            <p className="valor">{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(produto.preco)}</p>
+                            <p className="estoque">{produto.estoque} und.</p>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
