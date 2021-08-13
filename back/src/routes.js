@@ -7,6 +7,7 @@ const routes = express.Router();
 routes.get('/produtos',async (request, response)=>{
     const produtos = await connection('produtos').select('*');
 
+    console.log('chamou');
     return response.json(produtos);
 });
 
@@ -23,5 +24,14 @@ routes.post('/produtos', async (request , response) => {
 
     return response.json("sucessuf");
 });
+
+routes.delete('/produtos/:id', async (request, response) => {
+    const {id} = request.params;
+
+    await connection('produtos').where('id', id).delete();
+
+    return response.status(204).send();
+});
+
 
 module.exports = routes
