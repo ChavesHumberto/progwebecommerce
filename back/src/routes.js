@@ -7,7 +7,6 @@ const routes = express.Router();
 routes.get('/produtos',async (request, response)=>{
     const produtos = await connection('produtos').select('*');
 
-    console.log('chamou');
     return response.json(produtos);
 });
 
